@@ -1,0 +1,43 @@
+.RadioButton {
+  display: flex;
+  gap: 10px;
+
+  font-size: 28px;
+  .box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+  }
+  input:checked ~ .controlIndicator {
+    //background-color: #000;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  input:active ~ .controlIndicator, input:focus ~ .controlIndicator {
+    outline: 2px solid #3800EB;
+  }
+  .controlIndicator {
+    //position: absolute;
+    //top: 0;
+    //left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 52px;
+    min-width: 52px;
+    height: 52px;
+    width: 52px;
+
+    background-color: var(--bg-checkbox-default);
+    border-radius: 11%;
+    border: 1px solid var(--border-input-primary);
+  }
+  @media (max-width: 800px) {
+    font-size: 24px;
+  }
+}

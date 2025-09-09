@@ -1,0 +1,76 @@
+.FifthSection {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+    padding: 27px 18px;
+  }
+  .field {
+    display: grid;
+    grid-template-columns: minmax(230px, auto) 150px 150px;
+    align-items: center;
+    justify-content: stretch;
+
+    gap: 2vw;
+    .title {
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--txt-color-primary);
+    }
+    .inputWrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      input {
+        width: 100%;
+        height: 75px;
+        padding: 5px 10px;
+
+        font-size: 32px;
+        text-align: center;
+
+        background-color: var(--bg-input-primary);
+        border-radius: 11px;
+      }
+      label {
+        font-size: 22px;
+      }
+      .name {
+        font-style: italic;
+        font-size: 28px;
+      }
+    }
+    .inputWrapper > div {
+      justify-content: space-between;
+      width: 100%;
+    }
+    .unit {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--txt-color-primary);
+    }
+  }
+  @media (max-width: 800px) {
+    .field {
+      grid-template-columns: minmax(230px, auto) 100px 100px;
+      .title {
+        font-size: 24px;
+      }
+      .inputWrapper {
+        input {
+          font-size: 26px;
+        }
+        .name {
+          font-size: 16px;
+        }
+      }
+      .unit {
+        font-size: 24px;
+      }
+    }
+  }
+}

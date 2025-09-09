@@ -1,0 +1,31 @@
+.MethodologyFAST {
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+    padding: 27px 18px;
+  }
+  .checkBoxBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    .title {
+      font-size: 28px;
+    }
+  }
+  @media (max-width: 800px) {
+    .checkBoxBlock .title {
+      font-size: 24px;
+    }
+  }
+  .timeBlock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .unknownBox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

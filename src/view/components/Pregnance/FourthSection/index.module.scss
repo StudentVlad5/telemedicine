@@ -1,0 +1,61 @@
+.FourthSection {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 27px 18px;
+  .tableRow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    @media (max-width: 800px) {
+      flex-wrap: nowrap;
+    }
+  }
+  .whiteBox {
+    padding: 15px 28px;
+
+    background-color: #fff;
+    border: 1px solid var(--border-input-primary);
+  }
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+    padding: 27px 18px;
+  }
+  .checkbox {
+    padding: 0 20px;
+    width: 70%;
+    .title {
+      font-size: 28px;
+
+      strong {
+        font-weight: 600;
+      }
+    }
+    .subtitle {
+      font-size: 22px;
+    }
+  }
+  .tdButton {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    @media (max-width: 800px) {
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .checkbox {
+      .title {
+        font-size: 24px;
+      }
+      .subtitle {
+        font-size: 18px;
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+.ThirdSection {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  padding: 27px 18px;
+  padding-bottom: 50px;
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .title {
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--txt-color-primary);
+    }
+
+    .radioGroup {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .subtitleBn {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: end;
+      div {
+        border-radius: 50%;
+      }
+      span {
+        font-size: 18px;
+        color: var(--txt-color-primary);
+      }
+    }
+
+    .inputWrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 500px;
+      justify-content: center;
+      padding-left: calc(100% / 7);
+
+      input {
+        width: 100%;
+        height: 75px;
+        padding: 20px 10px;
+        font-size: 32px;
+        text-align: center;
+        background-color: var(--bg-input-primary);
+        border-radius: 11px;
+      }
+
+      .chooseButton {
+        border-radius: 16px;
+        font-weight: 400;
+        font-size: 28px;
+        height: 75px;
+      }
+    }
+  }
+  @media (min-width: 800px) {
+    .field {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      .title {
+        min-width: 250px;
+      }
+
+      .inputWrapper {
+        flex: 1;
+        padding-left: 0;
+      }
+    }
+  }
+}

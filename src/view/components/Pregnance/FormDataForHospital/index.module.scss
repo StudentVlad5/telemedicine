@@ -1,0 +1,81 @@
+.wraperSwich {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.subtly {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 12px;
+  max-width: 150px;
+  @media (min-width: 400px) {
+    font-size: 18px;
+  }
+}
+.subtlyGreen {
+  color: green;
+}
+.subtlyRed {
+  color: red;
+}
+.sendDataBtn {
+  width: 100%;
+  font-size: 20px;
+  padding: 5px 10px;
+  margin-top: 20px;
+  background-color: var(--bg-next-button);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.sendDataBtnRed {
+  background-color: var(--txt-color-error);
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+  padding: 30px;
+  gap: 20px;
+  @media (min-width: 300px) {
+    max-width: 100%;
+  }
+}
+.correctStyle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  @media (min-width: 600px) {
+    flex-direction: row;
+  }
+}
+
+.timeContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  gap: 20px;
+}
+
+.timeContainer input {
+  text-align: center;
+}
+
+.addBtn {
+  width: 80px;
+  height: 70px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 70%;
+}
+.operationContainer {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.operationBtn {
+  font-size: 24px;
+}

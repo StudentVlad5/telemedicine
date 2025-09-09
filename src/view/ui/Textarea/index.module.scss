@@ -1,0 +1,51 @@
+.inputText {
+  width: 100%;
+  .title {
+    display: block;
+
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--txt-color-primary);
+  }
+  .subtitle {
+    display: block;
+
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--txt-color-primary);
+  }
+  .textarea {
+    padding: .36em .63em;
+    width: 100%;
+    min-height: 110px;
+    max-height: 400px;
+    height: auto;
+
+    font-size: 36px;
+    font-weight: 400;
+    color: var(--txt-input-primary);
+
+    background-color: var(--bg-input-primary);
+    border: 1px solid var(--border-input-primary);
+    border-radius: 11px;
+
+    resize: none;
+  }
+  .inner {
+    margin-bottom: 5px;
+  }
+  @media (max-width: 800px) {
+    .title {
+      font-size: 24px;
+    }
+    .subtitle {
+      font-size: 16px;
+    }
+    .textarea {
+      min-height: 80px;
+      max-height: 250px;
+
+      font-size: 24px;
+    }
+  }
+}

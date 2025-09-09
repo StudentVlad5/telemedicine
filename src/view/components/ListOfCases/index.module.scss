@@ -1,0 +1,110 @@
+// стили для кейсов вызова
+.wrapListOfPoints {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  row-gap: 25px;
+  column-gap: 18px;
+  font-weight: 400;
+  font-size: 36px;
+  text-align: right;
+  color: var(--txt-color-secondary);
+}
+.wrapListOfPoints li {
+  padding: 10px 13px;
+  border-radius: 11px;
+  text-align: start;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  cursor: pointer;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.wrapListOfPoints li span {
+  word-wrap: break-word;
+  font-size: 36px;
+  @media (max-width: 600px) {
+    font-size: 24px;
+    text-transform: uppercase;
+    font-weight: 800;
+  }
+}
+
+.wrapListOfPoints li .styledRB {
+  min-height: 52px;
+  min-width: 52px;
+  height: 52px;
+  width: 52px;
+
+  background-color: var(--bg-checkbox-default);
+  border-radius: 11px;
+  border: 1px solid var(--border-input-primary);
+}
+
+// стили для больниц
+.wrapListOfHospitals {
+  padding: 40px;
+}
+.wrapListOfHospitals li span {
+  @media (max-width: 600px) {
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 800;
+  }
+}
+
+// стили для идентификации
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  width: 100%;
+
+  padding: 15px 0;
+  .clue {
+    height: 62px;
+    width: 62px;
+    min-height: 62px;
+    min-width: 62px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .invalidMessage {
+    position: absolute;
+    top: -5px;
+    left: 0;
+
+    color: #ff7f7f;
+  }
+  &.oneItem {
+    margin-bottom: 0.36em;
+  }
+  @media (max-width: 600px) {
+    gap: 10px;
+  }
+}
+
+.textInput {
+  padding: 0.36em 0.63em;
+  width: 100%;
+  height: 70px;
+
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--txt-input-primary);
+
+  background-color: var(--bg-input-primary);
+  border: 1px solid var(--border-input-primary);
+  border-radius: 11px;
+  @media (max-width: 800px) {
+    font-size: 24px;
+  }
+}

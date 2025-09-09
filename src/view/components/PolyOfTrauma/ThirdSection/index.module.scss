@@ -1,0 +1,128 @@
+.ThirdSection {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+    padding: 27px 18px;
+  }
+
+  .tableRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 45px;
+
+    @media (max-width: 800px) {
+      flex-wrap: nowrap;
+    }
+  }
+
+  .whiteBox {
+    padding: 15px 28px;
+
+    background-color: #fff;
+    border: 1px solid var(--border-input-primary);
+  }
+
+  .checkbox {
+    width: 60%;
+
+    .title {
+      font-size: 28px;
+
+      strong {
+        font-weight: 600;
+      }
+    }
+
+    .subtitle {
+      font-size: 22px;
+    }
+  }
+
+  .tdButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+
+    gap: 28px;
+    width: 40%;
+
+    @media (max-width: 800px) {
+      flex-direction: column;
+      // width: auto;
+    }
+  }
+
+  .inputWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+
+    input {
+      width: 150px;
+      height: 75px;
+      padding: 20px 10px;
+
+      font-size: 32px;
+      text-align: center;
+
+      background-color: var(--bg-input-primary);
+      border-radius: 11px;
+    }
+
+    label {
+      font-size: 22px;
+    }
+
+    .name {
+      font-style: italic;
+      font-size: 28px;
+    }
+  }
+
+  .inputWrapper>div {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .unit {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--txt-color-primary);
+  }
+
+  @media (max-width: 800px) {
+    .checkbox {
+      .title {
+        font-size: 24px;
+      }
+
+      .subtitle {
+        font-size: 18px;
+      }
+
+      .inputWrapper {
+        input {
+          font-size: 26px;
+        }
+
+        .name {
+          font-size: 16px;
+        }
+      }
+
+      .unit {
+        font-size: 24px;
+      }
+    }
+  }
+}

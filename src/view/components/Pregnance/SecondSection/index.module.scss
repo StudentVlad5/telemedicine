@@ -1,0 +1,79 @@
+.SecondSection {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 27px 18px;
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+    padding: 27px 18px;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 40px;
+    justify-content: stretch;
+
+    gap: 4vw;
+    .title {
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--txt-color-primary);
+    }
+    .inputWrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      input {
+        width: 100%;
+        height: 75px;
+        padding: 20px 10px;
+
+        font-size: 32px;
+        text-align: center;
+
+        background-color: var(--bg-input-primary);
+        border-radius: 11px;
+      }
+      label {
+        font-size: 22px;
+      }
+      .name {
+        font-style: italic;
+        font-size: 28px;
+      }
+    }
+    .inputWrapper > div {
+      justify-content: space-between;
+      width: 100%;
+    }
+    .unit {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--txt-color-primary);
+    }
+  }
+  @media (max-width: 800px) {
+    padding: 27px 18px;
+    .field {
+      grid-template-columns: minmax(230px, auto) 100px 100px;
+      .title {
+        font-size: 24px;
+      }
+      .inputWrapper {
+        input {
+          font-size: 26px;
+        }
+        .name {
+          font-size: 16px;
+        }
+      }
+      .unit {
+        font-size: 24px;
+      }
+    }
+  }
+}

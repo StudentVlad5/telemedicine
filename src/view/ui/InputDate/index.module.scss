@@ -1,0 +1,19 @@
+.inputDate {
+  padding: 10px 15px;
+  width: 100%;
+  border-radius: 17px;
+  border: 1px solid var(--txt-color-primary);
+  background-color: var(--txt-color-secondary);
+
+  color: var(--txt-color-primary);
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+
+  @media screen and (min-width: 768px) {
+    padding: 20px 70px;
+    width: 340px;
+  }
+}

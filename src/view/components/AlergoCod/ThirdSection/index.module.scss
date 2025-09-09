@@ -1,0 +1,51 @@
+.ThirdSection {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  table {
+    width: 100%;
+  }
+  .tableRow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    @media (max-width: 800px) {
+      flex-wrap: nowrap;
+    }
+  }
+  .checkbox {
+    padding: 0 20px;
+    width: 70%;
+    .title {
+      font-size: 28px;
+
+      strong {
+        font-weight: 600;
+      }
+    }
+    .subtitle {
+      font-size: 22px;
+    }
+  }
+  .tdButton {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    @media (max-width: 800px) {
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .checkbox {
+      .title {
+        font-size: 24px;
+      }
+      .subtitle {
+        font-size: 18px;
+      }
+    }
+  }
+}

@@ -1,0 +1,109 @@
+.SixthSection {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  .tableRow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    @media (max-width: 800px) {
+      flex-wrap: nowrap;
+    }
+  }
+  .whiteBox {
+    padding: 20px 10px;
+
+    background-color: #f9f9f9;
+    //border: 1px solid var(--border-input-primary);
+    .title {
+      display: inline-block;
+      margin-bottom: 30px;
+
+      font-size: 28px;
+      color: var(--txt-color-primary);
+      font-weight: 400;
+    }
+    .checkboxWrapper {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 40px;
+      text-align: center;
+    }
+    .check {
+      display: flex;
+      flex-direction: row-reverse;
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+  .textInputs {
+    display: flex;
+    gap: 10vw;
+    align-items: end;
+    .inputWrapper {
+      .title {
+        font-size: 20px;
+        font-weight: 400;
+        color: var(--txt-color-primary);
+        .invalidMessage {
+          font-size: 14px;
+          color: var(--txt-color-error);
+        }
+      }
+    }
+  }
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 27px 18px;
+  }
+  .checkbox {
+    .title {
+      font-size: 28px;
+      strong {
+        font-weight: 600;
+      }
+    }
+    .subtitle {
+      font-size: 22px;
+    }
+  }
+  .tdButton {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    @media (max-width: 800px) {
+      flex-direction: column;
+    }
+  }
+  @media (max-width: 800px) {
+    .checkbox {
+      .title {
+        font-size: 24px;
+      }
+      .subtitle {
+        font-size: 18px;
+      }
+    }
+    .whiteBox {
+      .title {
+        font-size: 24px;
+      }
+    }
+  }
+  @media (max-width: 600px) {
+    .whiteBox {
+      .checkboxWrapper {
+        flex-direction: column;
+        // align-items: center;
+      }
+    }
+  }
+  .textarea {
+    height: 166px;
+  }
+}

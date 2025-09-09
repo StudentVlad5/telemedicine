@@ -1,0 +1,44 @@
+.CheckBox {
+  .control {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    font-size: 28px;
+
+    cursor: pointer;
+    input {
+      position: absolute;
+      z-index: -1;
+      opacity: 0;
+    }
+    .controlIndicator {
+      //position: absolute;
+      //top: 0;
+      //left: 0;
+
+      min-height: 52px;
+      min-width: 52px;
+      height: 52px;
+      width: 52px;
+
+      background-color: var(--bg-checkbox-default);
+      border-radius: 11px;
+      border: 1px solid var(--border-input-primary);
+    }
+    input:checked ~ .controlIndicator {
+      //background-color: #000;
+      background-image: url('../../../assets/images/checkbox.png');
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    input:active ~ .controlIndicator, input:focus ~ .controlIndicator {
+      outline: 2px solid #3800EB;
+    }
+  }
+  @media (max-width: 800px) {
+    .control {
+      font-size: 24px;
+    }
+  }
+}

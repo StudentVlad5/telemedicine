@@ -1,0 +1,56 @@
+.InputTimeWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  .inputTitle {
+    display: block;
+
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--txt-color-primary);
+
+    margin-bottom: 5px;
+  }
+  @media (max-width: 800px) {
+    .inputTitle {
+      font-size: 24px;
+    }
+  }
+}
+.InputTime {
+  display: flex;
+  align-items: center;
+  padding: 20px 15px;
+
+  background-color: var(--bg-input-primary);
+  .timeBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    .title {
+      padding-top: 10px;
+      color: var(--txt-input-primary);
+      font-size: 18px;
+    }
+    input {
+      width: 100px;
+      height: 80px;
+      padding: 10px;
+
+      font-size: 52px;
+      text-align: center;
+      color: var(--txt-color-primary);
+
+      background-color: var(--bg-primary);
+      border-radius: 2px;
+    }
+  }
+  .delimiter {
+    width: 25px;
+
+    font-size: 52px;
+    text-align: center;
+
+    transform: translateY(-11px);
+  }
+}

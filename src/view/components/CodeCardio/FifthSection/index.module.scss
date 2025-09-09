@@ -1,0 +1,57 @@
+.FifthSection {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  padding: 27px 18px;
+
+  .field {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+
+    .title {
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--txt-color-primary);
+      width: 450px;
+    }
+
+    .radioGroup {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding-left: calc(20%);
+    }
+    .subtitleBn {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: end;
+      min-width: 250px;
+      padding-left: calc(100% / 2 - 40px);
+
+      div {
+        border-radius: 50%;
+      }
+      span {
+        font-size: 18px;
+        color: var(--txt-color-primary);
+      }
+    }
+  }
+  @media (max-width: 800px) {
+    .field {
+      flex-direction: column;
+      .title {
+        font-size: 24px;
+        width: 100%;
+      }
+    }
+  }
+}
+.whiteBox {
+  padding: 15px 28px;
+
+  // background-color: #fff;
+  // border: 1px solid var(--border-input-primary);
+}

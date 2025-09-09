@@ -1,0 +1,29 @@
+:root {
+  /* === txt === */
+  --txt-color-primary: #000;
+  --txt-color-secondary: #fff;
+  --txt-input-primary: #7c7a7a;
+  --txt-color-error: #ff7f7f;
+
+  /* === bg === */
+  --bg-primary: #e1e1e1;
+  --bg-secondary: #2f5597;
+
+  --bg-input-primary: #fff;
+  --bg-checkbox-default: #fff;
+
+  --bg-btn-primary: #2f5597;
+  --bg-btn-disabled: #a1a1a1;
+  --bg-prev-button: #ff7a00;
+  --bg-next-button: #0fb13c;
+  --bg-finish-button: #0fa8b1;
+
+  /* === border === */
+  --border-input-primary: #7a7a7a;
+  --border-checkbox-primary: #7a7a7a;
+
+  /* === transition === */
+  --anim: all 300ms ease, opacity 300ms ease;
+
+  //
+}

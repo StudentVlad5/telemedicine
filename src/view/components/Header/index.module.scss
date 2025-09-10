@@ -5,111 +5,23 @@
   gap: 10px;
   width: 100%;
   padding: 17px;
-
-  background-color: var(--bg-secondary);
-  .logoBox {
-    position: relative;
-
-    width: 167px;
-    height: 100%;
-
-    cursor: pointer;
-    img {
-      position: absolute;
-
-      //width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-  }
-  .infoCaseWraper {
+  background-color: var(--bg-input-primary);
+  .logoContainer {
     display: flex;
     flex-direction: row;
-    width: 100%;
-  }
-  .infoCase {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-  }
-  .titleBox {
-    font-size: 28px;
-    font-weight: 700;
-    color: #ffffff;
-    text-align: end;
-  }
-  .timeBox {
-    display: flex;
     align-items: center;
-    gap: 30px;
-    width: 100%;
-    justify-content: space-between;
-
-    color: var(--txt-color-secondary);
-    .title {
-      font-size: 32px;
-      font-weight: 700;
-      text-align: start;
-
-      transform: translateY(-3px);
-    }
-    .time {
-      display: flex;
-      font-size: 52px;
-      font-weight: 700;
-      .hours,
-      .minutes {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
-      .delimeter {
-        transform: translateY(-3px);
-      }
-      .unit {
-        font-size: 19px;
-        transform: translateY(-6px);
-      }
-    }
+    justify-content: center;
   }
-  .homeBtn {
-    font-size: 22px;
-    height: 60px;
-    border: 1px solid white;
+  .logoBox {
+    width: 100px;
+    border-radius: 50%;
+    overflow: hidden;
   }
-  @media (max-width: 800px) {
-    .titleBox {
-      font-size: 22px;
-    }
-    .timeBox {
-      .title {
-        font-size: 26px;
-      }
-    }
+  .logoBox:first-child {
+    width: 150px;
+    transform: translateY(15%);
   }
-  @media (max-width: 600px) {
-    .infoCaseWraper {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
-    .titleBox {
-      font-size: 18px;
-    }
-    .timeBox {
-      gap: 10px;
-      .title {
-        font-size: 18px;
-
-        transform: translateY(-6px);
-      }
-      .time {
-        font-size: 32px;
-        .unit {
-          font-size: 14px;
-        }
-      }
-    }
+  .textBox {
+    color: var(--txt-color-primary);
   }
 }

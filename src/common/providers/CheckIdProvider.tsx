@@ -6,19 +6,13 @@ export const CheckIdProvider = ({ children }: { children: any }) => {
   const location = useLocation();
 
   useEffect(() => {
-    const application_number = localStorage.getItem("application_number");
-    const id = localStorage.getItem("id");
-    const pointOfRouter = localStorage.getItem("pointOfRouter");
+    const key = localStorage.getItem("key");
+    const user_id = localStorage.getItem("user_id");
 
-    if (!application_number || !id || !pointOfRouter) navigate("/");
+    if (!key || !user_id) navigate("/");
 
-    if (
-      application_number &&
-      id &&
-      pointOfRouter &&
-      location.pathname === "/"
-    ) {
-      navigate(`/${pointOfRouter}/1`);
+    if (key && user_id && location.pathname === "/") {
+      navigate(`/request`);
     }
   }, [navigate, location.pathname]);
 

@@ -1,8 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import { AppLayout } from "../view/layouts/AppLayout";
-import { StartPage } from "../view/pages/StartPage/startPage";
+import { StartPage } from "../view/components/StartPage/startPage";
 import { CheckIdProvider } from "../common/providers/CheckIdProvider";
-import ManagePageRouter from "../view/pages/ManagePageRouter/managePageRouter";
+import { RequestPage } from "../view/components/RequestPage/requestPage";
+import { CallDetails } from "../view/components/CallDetails/callDetails";
 
 export const router = createBrowserRouter([
   {
@@ -13,16 +14,25 @@ export const router = createBrowserRouter([
         path: "/",
         element: (
           <CheckIdProvider>
-            {" "}
-            <StartPage />{" "}
+            <StartPage />
           </CheckIdProvider>
         ),
       },
       {
-        path: "/:pointId/:pageId",
+        path: "/request",
         element: (
           <CheckIdProvider>
-            <ManagePageRouter />
+            <RequestPage />
+          </CheckIdProvider>
+        ),
+      },
+      {
+        path: "/request/:callId",
+        element: (
+          <CheckIdProvider>
+            <div>
+              <CallDetails />
+            </div>
           </CheckIdProvider>
         ),
       },

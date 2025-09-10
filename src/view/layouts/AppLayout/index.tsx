@@ -1,26 +1,23 @@
 import s from "./index.module.scss";
-
 import { Outlet, useLocation } from "react-router-dom";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer/footer";
-import { useAppSelector, useThunks } from "../../../common/helpers/reduxHook";
-import { QuizState } from "../../../store/reducers/quiz.reducer";
 import Skeleton from "../../ui/Skeleton";
-import { useEffect } from "react";
-import { QuizThunks } from "../../../store/thunks/quiz.thunks";
+import { useAppContext } from "../../../common/helpers/AppContext";
 
 export const AppLayout = () => {
   const location = useLocation();
-  const { getQuizListThunk } = useThunks(QuizThunks);
-  const { quizIsLoading } = useAppSelector(QuizState);
+  // const { getQuizListThunk } = useThunks(QuizThunks);
+  // const { quizIsLoading } = useAppSelector(QuizState);
 
-  useEffect(() => {
-    getQuizListThunk();
-  }, []);
+  // useEffect(() => {
+  //   getQuizListThunk();
+  // }, []);
+  const { isLoading } = useAppContext();
 
   return (
     <div className={s.App}>
-      {quizIsLoading && <Skeleton />}
+      {isLoading && <Skeleton />}
       <Header />
       <Outlet />
       {location.pathname !== "/" && <Footer />}

@@ -7,13 +7,7 @@ import { CheckBox } from "../../ui/CheckBox";
 import { Button } from "../../ui/Button";
 import s from "./index.module.scss";
 import { baseUrl } from "../../../common/config";
-
-interface User {
-  id?: string;
-  fio: string;
-  job_title?: string;
-  identifier: string;
-}
+import { useAppContext } from "../../../common/helpers/AppContext";
 
 interface CallData {
   call_id: string;
@@ -26,75 +20,64 @@ interface CallData {
 }
 
 export const CallDetails = () => {
+  const { listOfUsers, user_id, key } = useAppContext();
   const { callId } = useParams<{ callId: string }>();
-  const [call, setCall] = useState<any | null>(null);
-  const [listOfUsers, setListOfUsers] = useState<User[]>([]);
+
+  const [call, setCall] = useState<CallData | null>(null);
 
   const [meetingDate, setMeetingDate] = useState("");
   const [meetingTime, setMeetingTime] = useState("");
   const [topic, setTopic] = useState("");
   const [users, setUsers] = useState<string[]>([]);
-  const [files, setFiles] = useState<File[]>([]);
+  const [, setFiles] = useState<File[]>([]);
   const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
+  const [message, setMessage] = useState<string | null>(null);
 
-  const user_id = localStorage.getItem("user_id") ?? "";
-  const key = localStorage.getItem("key") ?? "";
-  const id = localStorage.getItem("id") ?? "";
+  // універсальна функція для повідомлень
+  const showMessage = (msg: string) => {
+    setMessage(msg);
+    alert(msg);
+    setTimeout(() => setMessage(null), 3000);
+  };
 
-  // загрузка данных звонка
+  // завантаження даних з бекенду
+  const fetchCall = useCallback(async () => {
+    try {
+      const res = await fetch(
+        `${baseUrl}/shema?dict_name=calls_dict&user_id=${user_id}&key=${key}`
+      );
+      const data = await res.json();
+      if (data?.dicts && typeof data.dicts === "object") {
+        const callsArray: CallData[] = Object.values(data.dicts);
+        const found = callsArray.find((c) => c.call_id === callId);
 
-  useEffect(() => {
-    const fetchCall = async () => {
-      try {
-        const res = await fetch(
-          `${baseUrl}/shema?dict_name=calls_dict&user_id=${user_id}&key=${key}`
-        );
-        const data = await res.json();
-        if (data?.dicts && typeof data.dicts === "object") {
-          const callsArray: CallData[] = Object.values(data.dicts);
-          const found = callsArray.find((c: any) => c.call_id === callId);
+        if (found) {
+          setCall(found);
+          setTopic(found.text || "");
+          setUsers(found.participants || []);
+          setUploadedFiles(found.files || []);
 
-          if (found) {
-            setCall(found);
-            setTopic(found.text || "");
-            setUsers(found.participants || []);
-            setUploadedFiles(found.files || []);
-
-            // timestamp → дата/час
-            const d = new Date(Number(found.datatime) * 1000);
-            setMeetingDate(d.toISOString().slice(0, 10)); // YYYY-MM-DD
-            setMeetingTime(d.toISOString().slice(11, 16)); // HH:mm
-          }
+          const d = new Date(Number(found.datatime) * 1000);
+          setMeetingDate(d.toISOString().slice(0, 10)); // YYYY-MM-DD
+          setMeetingTime(d.toISOString().slice(11, 16)); // HH:mm
         }
-      } catch (err) {
-        console.error("Ошибка загрузки звонка:", err);
       }
-    };
-
-    const fetchUsers = async () => {
-      try {
-        const res = await fetch(
-          `${baseUrl}/shema?dict_name=users&user_id=${user_id}&key=${key}`
-        );
-        const data = await res.json();
-        if (Array.isArray(data?.dicts)) {
-          setListOfUsers(data.dicts);
-          localStorage.setItem("listOfUsers", JSON.stringify(data.dicts));
-        }
-      } catch (err) {
-        console.error("Ошибка загрузки пользователей:", err);
-      }
-    };
-
-    if (user_id && key) {
-      fetchCall();
-      fetchUsers();
+    } catch (err) {
+      console.error("Ошибка загрузки звонка:", err);
     }
   }, [callId, user_id, key]);
 
-  const chosenUsers = (id: string) => {
+  useEffect(() => {
+    if (user_id && key) {
+      fetchCall();
+    }
+  }, [fetchCall, user_id, key]);
+
+  const chosenUsers = (user_id: string) => {
     setUsers((prev) =>
-      prev.includes(id) ? prev.filter((u) => u !== id) : [...prev, id]
+      prev.includes(user_id)
+        ? prev.filter((u) => u !== user_id)
+        : [...prev, user_id]
     );
   };
 
@@ -105,24 +88,24 @@ export const CallDetails = () => {
         new Date(`${meetingDate}T${meetingTime}:00`).getTime() / 1000
       );
 
-      const url = `${baseUrl}/edit_call?key=${key}&user_id=${user_id}&call_id=${callId}`;
-      const body = {
-        datatime: datetime,
-        text: topic,
-        participants: users,
-      };
+      if (datetime < Date.now() / 1000) {
+        alert("Дата и время должны быть в будущем");
+        return;
+      }
 
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+      const url = `${baseUrl}/edit_call?key=${key}&user_id=${user_id}&call_id=${callId}&datatime=${datetime}&text=${encodeURIComponent(
+        topic
+      )}&participants=${users.join(";")}`;
+
+      const res = await fetch(url, { method: "POST" });
 
       if (!res.ok) throw new Error("Ошибка сохранения");
-      alert("Изменения сохранены!");
+
+      showMessage("Изменения сохранены успешно ✅");
+      await fetchCall(); // оновлюємо дані
     } catch (err) {
       console.error(err);
-      alert("Не удалось сохранить изменения");
+      showMessage("Не удалось сохранить изменения ❌");
     }
   };
 
@@ -145,14 +128,19 @@ export const CallDetails = () => {
             }
           );
           if (!res.ok) throw new Error("Ошибка загрузки файла");
+
           const data = await res.json();
           setUploadedFiles((prev) => [...prev, ...(data?.files || [])]);
+
+          showMessage(`Файл "${file.name}" успешно добавлен ✅`);
+          await fetchCall(); // оновлюємо дані після завантаження
         } catch (err) {
           console.error("Ошибка загрузки файла:", err);
+          showMessage(`Не удалось загрузить файл "${file.name}" ❌`);
         }
       }
     },
-    [baseUrl, user_id, key, callId]
+    [user_id, key, callId, fetchCall]
   );
 
   // drag & drop
@@ -203,12 +191,12 @@ export const CallDetails = () => {
         <h3>Участники:</h3>
         <ul className={s.usersContainer}>
           {listOfUsers.map((it) => (
-            <li key={it.identifier}>
+            <li key={it.user_id}>
               <CheckBox
-                id={it.identifier}
+                id={it.user_id}
                 title={it.fio}
-                checked={users.includes(it.identifier)}
-                onChange={() => chosenUsers(it.identifier)}
+                checked={users.includes(it.user_id)}
+                onChange={() => chosenUsers(it.user_id)}
               >
                 {`${it.fio} - ${it?.job_title ?? ""}`}
               </CheckBox>
@@ -224,7 +212,7 @@ export const CallDetails = () => {
       >
         Сохранить изменения
       </Button>
-
+      {message && <div className={s.message}>{message}</div>}
       <div className={s.filesBlock}>
         <h3>Файлы</h3>
 

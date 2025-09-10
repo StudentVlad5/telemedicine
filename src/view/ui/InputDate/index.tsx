@@ -12,12 +12,14 @@ export const InputDate = ({
   onChangeDate,
   valueDate,
   max,
+  min,
   ...otherProps
 }: {
   className?: string;
   onChangeDate?: (e: any) => void;
   valueDate?: string;
   max?: string;
+  min?: string;
 } & HTMLInputProps) => {
   return (
     <div className={classNames(s.InputDate, className && className)}>
@@ -28,6 +30,7 @@ export const InputDate = ({
         onChange={onChangeDate}
         value={valueDate ?? undefined}
         max={max}
+        min={min}
       />
     </div>
   );

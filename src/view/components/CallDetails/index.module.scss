@@ -1,5 +1,102 @@
 .CallDetails {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+  }
+}
+
+.meetingDataContainer {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  align-items: center;
+  margin-bottom: 15px;
+
+  span {
+    width: 120px;
+    font-weight: 500;
+  }
+
+  input,
+  textarea {
+    flex: 1;
+  }
+}
+
+.usersContainer {
+  list-style: none;
+  margin: 10px 0;
+  padding: 0;
+
+  li {
+    margin-bottom: 6px;
+  }
+}
+
+.saveBt {
+  margin-top: 20px;
+}
+
+.filesBlock {
+  margin-top: 30px;
+
+  h3 {
+    margin-bottom: 10px;
+  }
+}
+
+.dropZone {
+  border: 2px dashed #bbb;
+  padding: 30px;
+  text-align: center;
+  border-radius: 10px;
+  color: #666;
+  margin-bottom: 15px;
+  cursor: pointer;
+  position: relative;
+
+  input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  &:hover {
+    border-color: #333;
+    color: #000;
+  }
+}
+
+.filesList {
+  list-style: none;
+  padding: 0;
+
+  .fileItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+
+    a {
+      margin-left: 8px;
+      color: #0077cc;
+      text-decoration: none;
+    }
+  }
+}
+
+.fileIcon {
+  background: #eee;
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-size: 12px;
+  font-weight: bold;
 }

@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { AppLayout } from "../view/layouts/AppLayout";
 import { StartPage } from "../view/components/StartPage/startPage";
 import { CheckIdProvider } from "../common/providers/CheckIdProvider";
-import { RequestPage } from "../view/components/CallsPage/callPage";
+import { CallsPage } from "../view/components/CallsPage/callPage";
 import { CallDetails } from "../view/components/CallDetails/callDetails";
 
 export const router = createBrowserRouter([
@@ -19,20 +19,28 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/request",
+        path: "/calls",
         element: (
           <CheckIdProvider>
-            <RequestPage />
+            <CallsPage />
           </CheckIdProvider>
         ),
       },
       {
-        path: "/request/:callId",
+        path: "/calls/:callId",
         element: (
           <CheckIdProvider>
             <div>
               <CallDetails />
             </div>
+          </CheckIdProvider>
+        ),
+      },
+      {
+        path: "*",
+        element: (
+          <CheckIdProvider>
+            <StartPage />
           </CheckIdProvider>
         ),
       },

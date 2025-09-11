@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { InputDate } from "../../ui/InputDate";
 import { InputTime } from "../../ui/InputTime";
 import { Textarea } from "../../ui/Textarea";
@@ -16,12 +16,14 @@ interface CallData {
   participants: string[];
   files: string[];
   link?: string;
+  record?: string;
   creator?: string;
 }
 
 export const CallDetails = () => {
   const { listOfUsers, user_id, key } = useAppContext();
   const { callId } = useParams<{ callId: string }>();
+  const navigate = useNavigate();
 
   const [call, setCall] = useState<CallData | null>(null);
 
@@ -33,14 +35,16 @@ export const CallDetails = () => {
   const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
   const [message, setMessage] = useState<string | null>(null);
 
-  // універсальна функція для повідомлень
+  const [showAvailableUsers, setShowAvailableUsers] = useState(false);
+
+  // показать сообщение
   const showMessage = (msg: string) => {
     setMessage(msg);
     alert(msg);
     setTimeout(() => setMessage(null), 3000);
   };
 
-  // завантаження даних з бекенду
+  // ззапрос на бек
   const fetchCall = useCallback(async () => {
     try {
       const res = await fetch(
@@ -102,7 +106,7 @@ export const CallDetails = () => {
       if (!res.ok) throw new Error("Ошибка сохранения");
 
       showMessage("Изменения сохранены успешно ✅");
-      await fetchCall(); // оновлюємо дані
+      await fetchCall();
     } catch (err) {
       console.error(err);
       showMessage("Не удалось сохранить изменения ❌");
@@ -133,7 +137,7 @@ export const CallDetails = () => {
           setUploadedFiles((prev) => [...prev, ...(data?.files || [])]);
 
           showMessage(`Файл "${file.name}" успешно добавлен ✅`);
-          await fetchCall(); // оновлюємо дані після завантаження
+          await fetchCall();
         } catch (err) {
           console.error("Ошибка загрузки файла:", err);
           showMessage(`Не удалось загрузить файл "${file.name}" ❌`);
@@ -143,7 +147,6 @@ export const CallDetails = () => {
     [user_id, key, callId, fetchCall]
   );
 
-  // drag & drop
   const handleDrop = useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
@@ -154,8 +157,17 @@ export const CallDetails = () => {
 
   if (!call) return <div>Загрузка...</div>;
 
+  // участники
+  const participantUsers = listOfUsers.filter((u) => users.includes(u.user_id));
+  const availableUsers = listOfUsers.filter((u) => !users.includes(u.user_id));
+
   return (
     <div className={s.CallDetails}>
+      {/* Кнопка Назад */}
+      <Button classname={s.btnSmall} onClick={() => navigate(-1)}>
+        Назад
+      </Button>
+
       <h2>Редактировать вызов</h2>
 
       <div className={s.meetingDataContainer}>
@@ -187,14 +199,14 @@ export const CallDetails = () => {
         />
       </div>
 
+      {/* Участники */}
       <div className={s.meetingDataCont}>
-        <h3>Участники:</h3>
+        <h3>Участники встречи:</h3>
         <ul className={s.usersContainer}>
-          {listOfUsers.map((it) => (
+          {participantUsers.map((it) => (
             <li key={it.user_id}>
               <CheckBox
                 id={it.user_id}
-                title={it.fio}
                 checked={users.includes(it.user_id)}
                 onChange={() => chosenUsers(it.user_id)}
               >
@@ -203,16 +215,46 @@ export const CallDetails = () => {
             </li>
           ))}
         </ul>
+
+        <Button
+          classname={s.btnSmall}
+          onClick={() => setShowAvailableUsers((prev) => !prev)}
+        >
+          {showAvailableUsers
+            ? "Скрыть доступных участников"
+            : "Добавить участников"}
+        </Button>
+
+        {showAvailableUsers && (
+          <ul className={s.usersContainer}>
+            {availableUsers.map((it) => (
+              <li key={it.user_id}>
+                <CheckBox
+                  id={it.user_id}
+                  checked={users.includes(it.user_id)}
+                  onChange={() => chosenUsers(it.user_id)}
+                >
+                  {`${it.fio} - ${it?.job_title ?? ""}`}
+                </CheckBox>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
-      <Button
-        disabled={!meetingDate || !meetingTime || !topic || users.length === 0}
-        onClick={saveChanges}
-        classname={s.saveBt}
-      >
-        Сохранить изменения
-      </Button>
+      {/* Присоединиться к встрече */}
+      {!call.record && call.link && (
+        <Button
+          classname={s.btnSmall}
+          onClick={() => window.open(call.link, "_blank")}
+        >
+          Присоединиться к встрече
+        </Button>
+      )}
+
       {message && <div className={s.message}>{message}</div>}
+
+      {/* Файлы */}
       <div className={s.filesBlock}>
         <h3>Файлы</h3>
 
@@ -246,6 +288,14 @@ export const CallDetails = () => {
           })}
         </ul>
       </div>
+      {/* Сохранить изменения */}
+      <Button
+        disabled={!meetingDate || !meetingTime || !topic || users.length === 0}
+        onClick={saveChanges}
+        classname={s.saveBt}
+      >
+        Сохранить изменения
+      </Button>
     </div>
   );
 };

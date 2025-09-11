@@ -43,6 +43,9 @@ interface AppContextProps {
   id: string;
   setIsLoading: (isLoading: boolean) => void;
   setIsFetch: (isFetch: boolean) => void;
+  setUserId: (id: string) => void;
+  setKey: (key: string) => void;
+  setId: (id: string) => void;
 }
 
 const AppContext = createContext<AppContextProps | undefined>(undefined);
@@ -53,12 +56,30 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isFetch, setIsFetch] = useState(true);
 
-  const user_id = localStorage.getItem("user_id") ?? "";
-  const key = localStorage.getItem("key") ?? "";
-  const id = localStorage.getItem("id") ?? "";
+  const [user_id, setUserId] = useState(localStorage.getItem("user_id") ?? "");
+  const [key, setKey] = useState(localStorage.getItem("key") ?? "");
+  const [id, setId] = useState(localStorage.getItem("id") ?? "");
+
+  //  Контролируем  localStorage
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setUserId(localStorage.getItem("user_id") ?? "");
+      setKey(localStorage.getItem("key") ?? "");
+      setId(localStorage.getItem("id") ?? "");
+      setIsFetch(true); // Обновляем данные
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
 
   // получем с бекенда список пользователей
   const fetchUsers = useCallback(async () => {
+    if (!user_id || !key) return;
+
     setIsLoading(true);
     try {
       const res = await fetch(
@@ -78,6 +99,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
   //получаем список звонков
   const fetchCalls = useCallback(async () => {
+    if (!user_id || !key) return;
+
     setIsLoading(true);
     try {
       const res = await fetch(
@@ -86,6 +109,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       const data = await res.json();
       if (data?.dicts && typeof data.dicts === "object") {
         const callsArray: Call[] = Object.values(data.dicts);
+        callsArray.sort((a, b) => {
+          const da = Number(a.datatime);
+          const db = Number(b.datatime);
+          return da - db; // ранняя дата -> первая
+        });
         setListOfCalls(callsArray);
         localStorage.setItem("listOfCalls", JSON.stringify(callsArray));
       }
@@ -98,6 +126,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
   // при первом запуске либо обращаемся к бекенду либо тянем из кеша
   useEffect(() => {
+    if (!user_id || !key) return;
+
     const cachedUsers = localStorage.getItem("listOfUsers");
     const cachedCalls = localStorage.getItem("listOfCalls");
 
@@ -110,7 +140,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       fetchCalls();
       setIsFetch(false);
     }
-  }, [fetchUsers, fetchCalls, isFetch]);
+  }, [fetchUsers, fetchCalls, isFetch, user_id, key]);
 
   return (
     <AppContext.Provider
@@ -124,6 +154,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         id,
         setIsLoading,
         setIsFetch,
+        setUserId,
+        setKey,
+        setId,
       }}
     >
       {children}

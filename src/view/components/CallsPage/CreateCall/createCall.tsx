@@ -5,6 +5,7 @@ import { Textarea } from "../../../ui/Textarea";
 import { baseUrl } from "../../../../common/config";
 import { CheckBox } from "../../../ui/CheckBox";
 import { Button } from "../../../ui/Button";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import s from "./index.module.scss";
 import { useAppContext } from "../../../../common/helpers/AppContext";
 
@@ -15,6 +16,8 @@ export const CreateCall = () => {
   const [timeError, setTimeError] = useState("");
   const [topic, setTopic] = useState("");
   const [users, setUsers] = useState<string[]>([user_id ? user_id : ""]);
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const chosenUsers = useCallback((user_id: string) => {
     setUsers((prev) =>
@@ -118,22 +121,37 @@ export const CreateCall = () => {
 
       <div className={s.fieldGroup}>
         <h3>Участники:</h3>
-        <ul className={s.usersGrid}>
-          {listOfUsers
-            .filter((u) => u.user_id !== user_id)
-            .map((it) => (
-              <li key={it.user_id}>
-                <CheckBox
-                  id={it.user_id}
-                  title={it.fio}
-                  checked={users.includes(it.user_id)}
-                  onChange={() => chosenUsers(it.user_id)}
-                >
-                  {`${it.fio} - ${it?.job_title ?? ""}`}
-                </CheckBox>
-              </li>
-            ))}
-        </ul>
+        <button
+          type="button"
+          className={s.dropdownToggle}
+          onClick={() => setIsOpen((prev) => !prev)}
+        >
+          {`Выбрать участников (${users.length})`}
+          {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+        </button>
+
+        {isOpen && (
+          <div className={s.usersDropdown}>
+            <ul className={s.usersGrid}>
+              {listOfUsers
+                .filter((u) => u.user_id !== user_id)
+                .map((it) => (
+                  <li key={it.user_id} className={s.userItem}>
+                    <CheckBox
+                      id={it.user_id}
+                      title={it.fio}
+                      checked={users.includes(it.user_id)}
+                      onChange={() => chosenUsers(it.user_id)}
+                    >
+                      <span className={s.userLabel}>
+                        {`${it.fio} - ${it?.job_title ?? ""}`}
+                      </span>
+                    </CheckBox>
+                  </li>
+                ))}
+            </ul>
+          </div>
+        )}
       </div>
 
       <Button

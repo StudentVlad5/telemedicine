@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 import s from "./index.module.scss";
 import Identification from "../Identification/identification";
 import { baseUrl } from "../../../common/config";
+import { useAppContext } from "../../../common/helpers/AppContext";
 
 export const StartPage = () => {
   const navigate = useNavigate();
+  const { setUserId, setKey, setId, id } = useAppContext();
 
-  const [id, setId] = useState<string>(localStorage.getItem("id") ?? "");
   const [invalidMessage, setInvalidMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -39,7 +40,11 @@ export const StartPage = () => {
             ) {
               localStorage.setItem("key", newData.identifiers.key);
               localStorage.setItem("user_id", newData.identifiers.user_id);
-              navigate(`/request`);
+              localStorage.setItem("id", id);
+              setUserId(newData.identifiers.user_id);
+              setKey(newData.identifiers.key);
+              setId(id);
+              navigate(`/calls`);
             }
             if (newData && newData?.description) {
               setErrorMessage(newData.description);
@@ -52,7 +57,7 @@ export const StartPage = () => {
     if (id && id.length > 6) {
       getData();
     }
-  }, []);
+  }, [id, navigate]);
 
   useMemo(() => {
     if (id && id.length !== 7) setInvalidMessage("Введите 7 символов");
@@ -60,7 +65,6 @@ export const StartPage = () => {
   }, [id]);
 
   const onSubmitFormHandler = async () => {
-    localStorage.setItem("id", id);
     try {
       setIsLoading(true);
       await fetch(`${baseUrl}/input_identifier?identifier=${id}`, {
@@ -81,7 +85,11 @@ export const StartPage = () => {
           ) {
             localStorage.setItem("key", newData.identifiers.key);
             localStorage.setItem("user_id", newData.identifiers.user_id);
-            navigate(`/request`);
+            localStorage.setItem("id", id);
+            setUserId(newData.identifiers.user_id);
+            setKey(newData.identifiers.key);
+            setId(id);
+            navigate(`/calls`);
           }
         });
     } catch (error) {
@@ -102,7 +110,7 @@ export const StartPage = () => {
         disabled={!id || isLoading || !!invalidMessage}
         onClick={onSubmitFormHandler}
       >
-        Sign In
+        Войти
       </Button>
     </div>
   );

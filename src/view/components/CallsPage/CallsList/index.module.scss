@@ -1,10 +1,11 @@
 .CallsList {
   padding: 16px;
+  width: calc(60%);
 }
 
 .filterInput {
   margin-bottom: 16px;
-  width: 100%;
+  font-size: 16px;
 }
 
 .callsContainer {
@@ -33,13 +34,97 @@
   font-size: 14px;
   color: #555;
 }
+.participants p {
+  font-size: 14px;
+}
 .buttonsRow {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 20px;
 }
+
 .detailsBtn {
   background-color: var(--bg-btn-primary);
   color: var(--txt-color-secondary);
   padding: 10px 25px;
+  width: auto;
+  margin-bottom: 20px;
+  font-size: 13px;
+  border-radius: 8px;
+  color: var(--txt-color-secondary);
+  border: 1px solid #ccc;
+  background: var(--bg-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.detailsBtn:hover {
+  background: #ddd;
+  color: var(--txt-color-primary);
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggleFiltersBtn {
+  background: none;
+  border: none;
+  color: var(--bg-btn-primary);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.filtersPanel {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 12px 0;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #f9f9f9;
+}
+
+.resetBtn {
+  grid-column: 1 / -1;
+  justify-self: start;
+  padding: 6px 12px;
+  border: none;
+  background: var(--bg-secondary);
+  border-radius: 6px;
+  cursor: pointer;
+  &:hover {
+    background: #ddd;
+  }
+}
+// Пагинация
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 16px;
+
+  button {
+    border: 1px solid #ccc;
+    background: #fff;
+    color: var(--txt-color-primary);
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    &:hover {
+      background: #f0f0f0;
+    }
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+  .activePage {
+    background: var(--bg-secondary);
+    color: #fff;
+    border-color: var(--bg-secondary);
+  }
 }

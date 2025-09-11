@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.0a71f30d.css",
-    "main.js": "/static/js/main.82968b28.js",
+    "main.css": "/static/css/main.92b02bba.css",
+    "main.js": "/static/js/main.e942b13e.js",
     "static/media/logo.svg": "/static/media/logo.4d3009f63c8dcea77b39e0c69a0ee9d7.svg",
     "static/media/logo_hospital.jpg": "/static/media/logo_hospital.946b4c8a0b7958b2aadd.jpg",
     "index.html": "/index.html",
-    "main.0a71f30d.css.map": "/static/css/main.0a71f30d.css.map",
-    "main.82968b28.js.map": "/static/js/main.82968b28.js.map"
+    "main.92b02bba.css.map": "/static/css/main.92b02bba.css.map",
+    "main.e942b13e.js.map": "/static/js/main.e942b13e.js.map"
   },
   "entrypoints": [
-    "static/css/main.0a71f30d.css",
-    "static/js/main.82968b28.js"
+    "static/css/main.92b02bba.css",
+    "static/js/main.e942b13e.js"
   ]
 }

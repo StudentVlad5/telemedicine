@@ -7,12 +7,6 @@ import { useAppContext } from "../../../common/helpers/AppContext";
 
 export const AppLayout = () => {
   const location = useLocation();
-  // const { getQuizListThunk } = useThunks(QuizThunks);
-  // const { quizIsLoading } = useAppSelector(QuizState);
-
-  // useEffect(() => {
-  //   getQuizListThunk();
-  // }, []);
   const { isLoading } = useAppContext();
 
   return (

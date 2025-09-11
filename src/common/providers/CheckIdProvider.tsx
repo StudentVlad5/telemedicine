@@ -12,7 +12,7 @@ export const CheckIdProvider = ({ children }: { children: any }) => {
     if (!key || !user_id) navigate("/");
 
     if (key && user_id && location.pathname === "/") {
-      navigate(`/request`);
+      navigate(`/calls`);
     }
   }, [navigate, location.pathname]);
 

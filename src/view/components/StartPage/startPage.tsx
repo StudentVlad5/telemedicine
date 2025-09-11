@@ -105,13 +105,14 @@ export const StartPage = () => {
       <div className={s.pointsContainer}>
         <Identification id={id} setId={setId} invalidMessage={invalidMessage} />
       </div>
-      {errorMessage && <p>{errorMessage}</p>}
+
       <Button
         disabled={!id || isLoading || !!invalidMessage}
         onClick={onSubmitFormHandler}
       >
         Войти
       </Button>
+      {errorMessage && <p>{errorMessage}</p>}
     </div>
   );
 };

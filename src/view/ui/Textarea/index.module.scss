@@ -3,7 +3,7 @@
   .title {
     display: block;
 
-    font-size: 28px;
+    font-size: 14px;
     font-weight: 400;
     color: var(--txt-color-primary);
   }
@@ -15,13 +15,13 @@
     color: var(--txt-color-primary);
   }
   .textarea {
-    padding: .36em .63em;
+    padding: 0.36em 0.63em;
     width: 100%;
     min-height: 110px;
     max-height: 400px;
     height: auto;
 
-    font-size: 36px;
+    font-size: 14px;
     font-weight: 400;
     color: var(--txt-input-primary);
 
@@ -33,19 +33,5 @@
   }
   .inner {
     margin-bottom: 5px;
-  }
-  @media (max-width: 800px) {
-    .title {
-      font-size: 24px;
-    }
-    .subtitle {
-      font-size: 16px;
-    }
-    .textarea {
-      min-height: 80px;
-      max-height: 250px;
-
-      font-size: 24px;
-    }
   }
 }

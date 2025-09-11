@@ -1,10 +1,9 @@
 .CreateCall {
-  max-width: 600px;
-  margin: 20px auto;
+  max-width: 450px;
   padding: 24px;
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px var(--bg-btn-primary);
 
   h2 {
     margin-bottom: 20px;

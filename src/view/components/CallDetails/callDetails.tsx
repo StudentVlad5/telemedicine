@@ -44,7 +44,7 @@ export const CallDetails = () => {
     setTimeout(() => setMessage(null), 3000);
   };
 
-  // ззапрос на бек
+  // запрос на бек
   const fetchCall = useCallback(async () => {
     try {
       const res = await fetch(
@@ -91,11 +91,11 @@ export const CallDetails = () => {
       const datetime = Math.floor(
         new Date(`${meetingDate}T${meetingTime}:00`).getTime() / 1000
       );
-
-      if (datetime < Date.now() / 1000) {
-        alert("Дата и время должны быть в будущем");
-        return;
-      }
+      // вернуть проверку даты после тесирования
+      // if (datetime < Date.now() / 1000) {
+      //   alert("Дата и время должны быть в будущем");
+      //   return;
+      // }
 
       const url = `${baseUrl}/edit_call?key=${key}&user_id=${user_id}&call_id=${callId}&datatime=${datetime}&text=${encodeURIComponent(
         topic
@@ -204,7 +204,7 @@ export const CallDetails = () => {
         <h3>Участники встречи:</h3>
         <ul className={s.usersContainer}>
           {participantUsers.map((it) => (
-            <li key={it.user_id}>
+            <li key={it.identifier}>
               <CheckBox
                 id={it.user_id}
                 checked={users.includes(it.user_id)}
@@ -228,7 +228,7 @@ export const CallDetails = () => {
         {showAvailableUsers && (
           <ul className={s.usersContainer}>
             {availableUsers.map((it) => (
-              <li key={it.user_id}>
+              <li key={it.identifier}>
                 <CheckBox
                   id={it.user_id}
                   checked={users.includes(it.user_id)}
@@ -250,6 +250,18 @@ export const CallDetails = () => {
         >
           Присоединиться к встрече
         </Button>
+      )}
+      {call.record && (
+        <a
+          className={s.btnSmall}
+          href={`${baseUrl}/download/${encodeURIComponent(
+            call.record
+          )}?user_id=${user_id}&key=${key}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Прослушать запись встречи
+        </a>
       )}
 
       {message && <div className={s.message}>{message}</div>}
@@ -280,7 +292,13 @@ export const CallDetails = () => {
             return (
               <li key={idx} className={s.fileItem}>
                 <span className={s.fileIcon}>{ext?.toUpperCase()}</span>
-                <a href={file} target="_blank" rel="noreferrer">
+                <a
+                  href={`${baseUrl}/download/${encodeURIComponent(
+                    file
+                  )}?user_id=${user_id}&key=${key}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   {name}
                 </a>
               </li>

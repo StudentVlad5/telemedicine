@@ -15,7 +15,7 @@ export const CallsList = () => {
     return new Date(num * 1000).toISOString().slice(0, 10);
   };
   // --- фильтры ---
-  const [filtersVisible, setFiltersVisible] = useState(true);
+  const [filtersVisible, setFiltersVisible] = useState(false);
   const [filterText, setFilterText] = useState("");
   const [filterCreator, setFilterCreator] = useState("");
   const [filterParticipant, setFilterParticipant] = useState("");
@@ -46,12 +46,13 @@ export const CallsList = () => {
 
   const resolveParticipants = useCallback(
     (ids: string[]) =>
-      ids.map((id) => {
+      ids.map((id, ind) => {
         const user = listOfUsers.find((u) => u.user_id === id);
         return (
-          <p key={id}>
-            {user ? user.fio : id}
-            {user?.job_title ? " - " + user.job_title : ""}
+          <p key={ind}>
+            {`${user?.med_org ?? ""}, ${user?.job_title ?? ""} - ${
+              user?.fio ?? id
+            }`}
           </p>
         );
       }),
@@ -225,7 +226,9 @@ export const CallsList = () => {
                   {call.files.map((file) => (
                     <li key={file}>
                       <a
-                        href={`${baseUrl}/download/${file}?user_id=${user_id}&key=${key}`}
+                        href={`${baseUrl}/download/${encodeURIComponent(
+                          file
+                        )}?user_id=${user_id}&key=${key}`}
                         target="_blank"
                         rel="noreferrer"
                       >
@@ -250,7 +253,13 @@ export const CallsList = () => {
                 Подробнее
               </button>
               {call.record ? (
-                <a href={call.record} target="_blank" rel="noreferrer">
+                <a
+                  href={`${baseUrl}/download/${encodeURIComponent(
+                    call.record
+                  )}?user_id=${user_id}&key=${key}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <div className={s.detailsBtn}>Запись</div>
                 </a>
               ) : (

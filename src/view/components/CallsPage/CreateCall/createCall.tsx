@@ -136,7 +136,7 @@ export const CreateCall = () => {
               {listOfUsers
                 .filter((u) => u.user_id !== user_id)
                 .map((it) => (
-                  <li key={it.user_id} className={s.userItem}>
+                  <li key={it.identifier} className={s.userItem}>
                     <CheckBox
                       id={it.user_id}
                       title={it.fio}
@@ -144,7 +144,7 @@ export const CreateCall = () => {
                       onChange={() => chosenUsers(it.user_id)}
                     >
                       <span className={s.userLabel}>
-                        {`${it.fio} - ${it?.job_title ?? ""}`}
+                        {`${it.med_org}, ${it?.job_title ?? ""} - ${it.fio}`}
                       </span>
                     </CheckBox>
                   </li>

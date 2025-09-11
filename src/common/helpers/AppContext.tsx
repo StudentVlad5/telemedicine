@@ -75,7 +75,6 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       window.removeEventListener("storage", handleStorageChange);
     };
   }, []);
-
   // получем с бекенда список пользователей
   const fetchUsers = useCallback(async () => {
     if (!user_id || !key) return;
@@ -87,8 +86,21 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       );
       const data = await res.json();
       if (Array.isArray(data?.dicts)) {
-        setListOfUsers(data.dicts);
-        localStorage.setItem("listOfUsers", JSON.stringify(data.dicts));
+        const sortData = data?.dicts.sort((a: any, b: any) => {
+          return a.med_org
+            .toString()
+            .trim()
+            .toLowerCase()
+            .localeCompare(b.med_org.toString().trim().toLowerCase());
+        });
+
+        sortData.length > 0
+          ? setListOfUsers(sortData)
+          : setListOfUsers(data.dicts);
+        localStorage.setItem(
+          "listOfUsers",
+          JSON.stringify(sortData.length > 0 ? sortData : data.dicts)
+        );
       }
     } catch (err) {
       console.error("Ошибка загрузки пользователей:", err);

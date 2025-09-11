@@ -1,6 +1,9 @@
 .CallsList {
   padding: 16px;
   width: calc(60%);
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px var(--bg-btn-primary);
 }
 
 .filterInput {
